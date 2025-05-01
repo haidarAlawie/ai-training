@@ -3,7 +3,7 @@ import os
 from openai import OpenAI
 from pydantic import BaseModel
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=API_KEY)
 
 
 # --------------------------------------------------------------
@@ -38,6 +38,6 @@ completion = client.beta.chat.completions.parse(
 # --------------------------------------------------------------
 
 event = completion.choices[0].message.parsed
-event.name
-event.date
-event.participants
+print(event.name)
+print(event.date)
+print(event.participants)
