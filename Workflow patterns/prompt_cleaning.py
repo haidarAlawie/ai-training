@@ -13,7 +13,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key="")
+
+
+
 model = "gpt-4o"
 
 # --------------------------------------------------------------
@@ -71,7 +74,7 @@ def extract_event_info(user_input: str) -> EventExtraction:
         messages=[
             {
                 "role": "system",
-                "content": f"{date_context} Analyze if the text describes a calendar event.",
+                "content": f"{date_context} Analyze if the text describes a calendar event. Event can also be solo.",
             },
             {"role": "user", "content": user_input},
         ],
@@ -169,7 +172,7 @@ def process_calendar_request(user_input: str) -> Optional[EventConfirmation]:
 # Step 4: Test the chain with a valid input
 # --------------------------------------------------------------
 
-user_input = "Let's schedule a 1h team meeting next Tuesday at 2pm with Alice and Bob to discuss the project roadmap."
+user_input = input("whaen do you want to meet?  ")
 
 result = process_calendar_request(user_input)
 if result:
@@ -184,12 +187,12 @@ else:
 # Step 5: Test the chain with an invalid input
 # --------------------------------------------------------------
 
-user_input = "Can you send an email to Alice and Bob to discuss the project roadmap?"
+# user_input = "Can you send an email to Alice and Bob to discuss the project roadmap?"
 
-result = process_calendar_request(user_input)
-if result:
-    print(f"Confirmation: {result.confirmation_message}")
-    if result.calendar_link:
-        print(f"Calendar Link: {result.calendar_link}")
-else:
-    print("This doesn't appear to be a calendar event request.")
+# result = process_calendar_request(user_input)
+# if result:
+#     print(f"Confirmation: {result.confirmation_message}")
+#     if result.calendar_link:
+#         print(f"Calendar Link: {result.calendar_link}")
+# else:
+#     print("This doesn't appear to be a calendar event request.")
